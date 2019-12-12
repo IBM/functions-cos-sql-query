@@ -178,12 +178,8 @@ To deploy the rest of the functions required in this application, we'll use the 
       ![](images/sqlqueryresults.png)
     5. As you can see, we uploaded some photos of dogs, and have 3 images with the class `dog`, 3 images with the class `animal`, and 1 image with the class `sporting dog`.
 
-
-
 6. It's possible that once you get your aggregated results, you want to continue to do some processing in IBM Cloud Functions. To that end, we've included an IBM Cloud Functions action to read this query result. You can see the results of that in the IBM Cloud Functions Monitor tab.
 
     1. Go to IBM Cloud Functions [Monitor tab](https://cloud.ibm.com/functions/dashboard).
-
-    2. Here, you can see all of your actions run. The most recent one should be called `openwhisk-sql-query/result-set`. Click the activation id for this action, and you can view the results in the response body.  
-
+    2. Here, you can see all of your actions run. The most recent one should be called `openwhisk-sql-query/result-set`. Click the activation id for this action, and you can view the results in the response body.
     3. You could now do some additional processing on this information using your IBM Cloud Functions!
