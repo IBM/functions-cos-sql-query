@@ -66,35 +66,34 @@ To run this application, you'll need to set up Object Storage, the Visual Recogn
 We'll deploy two packages containing already created actions that we can use to interact with our Cloud Object Storage and SQL Query instances.
 
 1. You should have already made note of your instance crn from SQL Query.  If not, you can find it on the SQL Query instance page. Once you have this value, create an environment variable for it:
-  ```
-  export INSTANCE_CRN=<your_instance_crn>
-  ```
+    ```
+    export INSTANCE_CRN=<your_instance_crn>
+    ```
 
 1. SQL Query requires an IAM token to be used when making API calls. Since IAM tokens expire after 60 minutes, it's advised to create an API Key that will be used to generate an IAM token when the functions run. The API key will be saved during package deployment. Create the API Key for your own personal identity, copy the key value, and save it in a secure place:
-  ```
-  export API_KEY=`ibmcloud iam api-key-create sql-query-key -d 'apiKey created for http://github.com/IBM-Cloud/openwhisk-sql-query' | grep 'API Key' | awk ' {print $3} '`
-  ```
+    ```
+    export API_KEY=`ibmcloud iam api-key-create sql-query-key -d 'apiKey created for http://github.com/IBM-Cloud/openwhisk-sql-query' | grep 'API Key' | awk ' {print $3} '`
+    ```
 
 1. Clone the SQL Query Package Repo:
-  ```
-  git clone https://github.com/IBM-Cloud/openwhisk-sql-query.git
-  ```
+    ```
+    git clone https://github.com/IBM-Cloud/openwhisk-sql-query.git
+    ```
 
 1. Change directories into the openwhisk-sql-query folder you just cloned:
-  ```
-  cd openwhisk-sql-query
-  ```
+    ```
+    cd openwhisk-sql-query
+    ```
 
 1. Deploy the package using `ibmcloud fn deploy`. This command will look for a `manifest.yaml` file defining a collection of packages, actions, triggers, and rules to be deployed.
-  ```
-  ibmcloud fn deploy --param instance_crn $INSTANCE_CRN --param apiKey $API_KEY
-  ```
+    ```
+    ibmcloud fn deploy --param instance_crn $INSTANCE_CRN --param apiKey $API_KEY
+    ```
 
 ### Bind required service credentials to the Cloud Object Storage package
 The SQL Query package relies on the Cloud Object Storage package, and has installed it as a dependency. To use the COS package, we will have to bind credentials to the package.
 
-1. You will need to save the endpoint name, which is the COS Endpoint for your buckets. Since you selected us-south when selecting your buckets, the endpoint should be `s3.us-south.cloud-object-storage.appdomain.cloud`. 
-
+1. You will need to save the endpoint name, which is the COS Endpoint for your buckets. Since you selected us-south when selecting your buckets, the endpoint should be `s3.us-south.cloud-object-storage.appdomain.cloud`.
     ```
     export ENDPOINT=s3.us-south.cloud-object-storage.appdomain.cloud  
     ```
@@ -103,9 +102,9 @@ The SQL Query package relies on the Cloud Object Storage package, and has instal
     ibmcloud fn package update cloud-object-storage --param endpoint $ENDPOINT
     ```
 1. Bind your already created credentials to the Cloud Object Storage package:
-  ```
-  ibmcloud fn service bind cloud-object-storage cloud-object-storage --instance <your COS instance name>
-  ```
+    ```
+    ibmcloud fn service bind cloud-object-storage cloud-object-storage --instance <your COS instance name>
+    ```
 
 1. Congratulations, you've created a Cloud Object Storage and SQL Query package with actions you can now use!
 
