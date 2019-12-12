@@ -97,6 +97,8 @@ The SQL Query package relies on the Cloud Object Storage package, and has instal
     ```
     export ENDPOINT=s3.us-south.cloud-object-storage.appdomain.cloud  
     ```
+*Note: If you selected a different region, you can find your endpoint by clicking your Cloud Object Storage service in the [Resource list](https://cloud.ibm.com/resources?groups=storage), finding your bucket in the list, and then looking under Configuration for that bucket. Use the public endpoint.*
+
 1. Let's update the package with your endpoint information.
     ```
     ibmcloud fn package update cloud-object-storage --param endpoint $ENDPOINT
@@ -128,12 +130,17 @@ To deploy the rest of the functions required in this application, we'll use the 
     export RULE_NAME_PROCESSED=<different_chosen_rule_name>
     ```
 
-1. You already chose a bucket name earlier when creating your COS Instance. Save that name as your BUCKET_NAME environment variable:
+1. You already chose a few bucket names earlier when creating your COS Instance. Save those names as the following environment variable:
     ```
     export BUCKET_NAME=<your_bucket_name>
+    export BUCKET_NAME_PROCESSED=<your_bucket_name_processed>
+    export SQL_RESULTS_BUCKET=<your_sql_results_bucket_name>
     ```
 
-*Note: If you selected a different region, you can find your endpoint by clicking your Cloud Object Storage service in the [Resource list](https://cloud.ibm.com/resources?groups=storage), finding your bucket in the list, and then looking under Configuration for that bucket. Use the public endpoint.*
+1. You will also need to tell SQL Query where to place the results of the sql query it will run to aggregate and process the visual recognition class data. The value will be of the format: `cos://<your region>/<your_bucket_name>.
+    ```
+    export SQL_RESULTS_TARGET=cos://us-south/$SQLRESULTS_BUCKET
+    ```
 
 1. Finally, you will need some information from the Visual Recognition service.  You saved your apikey earlier, so use that. This application is built against the version released on `2018-03-19`, so we'll use that value for VERSION.
     ```
@@ -154,9 +161,9 @@ To deploy the rest of the functions required in this application, we'll use the 
 
 2. Click on your `my-images` bucket. You may have named it something different. Drag an image into this bucket from your computer.
 
-3. Click Buckets on the left side menu, and go to your `my-images-processed` bucket. You should see a `.txt` file containing the information returned from the Visual Recognition service.
+3. Click Buckets on the left side menu, and go to your `my-images-processed` bucket. You should see a `.json` file containing the information returned from the Visual Recognition service.
 
-4. When the `.txt` file was added to this `-processed` bucket, a trigger was fired to run a SQL query. The SQL Query will aggregate all of the classes across these text files, so you can tell what types of images you have the most of in your database.
+4. When the `.json` file was added to this `-processed` bucket, a trigger was fired to run a SQL query. The SQL Query will aggregate all of the classes across these text files, so you can tell what types of images you have the most of in your database.
     ```
     WITH explode_classes as (SELECT id, explode(classes) theclass FROM cos://us-south/my-images-bmv-processed STORED AS JSON) SELECT theclass.class, COUNT(id) as NumPicsWithClass FROM explode_classes GROUP BY theclass.class
     ```

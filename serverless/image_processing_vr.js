@@ -42,7 +42,7 @@ async function main(params) {
 
     return {
       bucket: `${bucket}-processed`,
-      key: `${key}_vr.txt`,
+      key: `${key}_vr.json`,
       body: JSON.stringify(returnJSON),
     };
   } catch (err) {

@@ -3,14 +3,11 @@
 # Installing openwhisk actions, triggers, and rules for OpenWhisk building block - Cloudant Trigger
 
 # Deployment using this manifest file creates following OpenWhisk components:
-#   Package:    cloud-object-storage
-#   Package:    openwhisk-sql-query
 #   Package:    $PACKAGE_NAME
 #   Action:     $PACKAGE_NAME/parse_trigger.js
 #   Action:     $PACKAGE_NAME/image_processing_vr.js
 #   Action:     $PACKAGE_NAME/parse_params_sql_query
 #   Action:     $PACKAGE_NAME/call_sql_job_results
-#   Action:     $PACKAGE_NAME/find_and_write_similar_items
 #   Sequence:   $PACKAGE_NAME/imagesequence
 #   Sequence:   $PACKAGE_NAME/vrandwrite
 #   Sequence:   $PACKAGE_NAME/sqlquerysequence
