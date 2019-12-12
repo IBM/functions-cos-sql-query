@@ -3,4 +3,3 @@ sudo: required
 
 script:
   - ./travis/test.sh
-  - npm run lint
