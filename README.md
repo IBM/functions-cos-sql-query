@@ -163,11 +163,22 @@ To deploy the rest of the functions required in this application, we'll use the 
 
 3. Click Buckets on the left side menu, and go to your `my-images-processed` bucket. You should see a `.json` file containing the information returned from the Visual Recognition service.
 
-4. When the `.json` file was added to this `-processed` bucket, a trigger was fired to run a SQL query. The SQL Query will aggregate all of the classes across these text files, so you can tell what types of images you have the most of in your database.
+4. When the `.json` file was added to this `-processed` bucket, a trigger was fired to run a SQL query. The SQL Query will aggregate all of the classes across these json files, so you can tell what types of images you have the most of in your database.
     ```
     WITH explode_classes as (SELECT id, explode(classes) theclass FROM cos://us-south/my-images-bmv-processed STORED AS JSON) SELECT theclass.class, COUNT(id) as NumPicsWithClass FROM explode_classes GROUP BY theclass.class
     ```
-5. Let's go see the SQL query results. Click Buckets on the left side menu, and go to your `sql-query-results` bucket. There should be a file ending in _csv, which contains the results of the SQL query!
+5. Let's go see the SQL query results. Click Buckets on the left side menu, and go to your `sql-query-results` bucket. There should be a file ending in _csv, which contains the results of the SQL query!  
+
+6. You can also find the results of the SQL query in your SQL query instance:
+  
+    1. Go to the [resources list](https://cloud.ibm.com/resources), and click on your SQL query instance.
+    2. Launch the SQL query UI using the button in the upper right hand corner of the page.
+    3. Under `Jobs`, click the most recently Completed query.
+    4. You should be able to see the Results, which will look something like this:
+      ![](images/sqlqueryresults.png)
+    5. As you can see, we uploaded some photos of dogs, and have 3 images with the class `dog`, 3 images with the class `animal`, and 1 image with the class `sporting dog`.
+
+
 
 6. It's possible that once you get your aggregated results, you want to continue to do some processing in IBM Cloud Functions. To that end, we've included an IBM Cloud Functions action to read this query result. You can see the results of that in the IBM Cloud Functions Monitor tab.
 
