@@ -160,10 +160,9 @@ To deploy the rest of the functions required in this application, we'll use the 
     ```
     WITH explode_classes as (SELECT id, explode(classes) theclass FROM cos://us-south/my-images-bmv-processed STORED AS JSON) SELECT theclass.class, COUNT(id) as NumPicsWithClass FROM explode_classes GROUP BY theclass.class
     ```
+5. Let's go see the SQL query results. Click Buckets on the left side menu, and go to your `sql-query-results` bucket. There should be a file ending in _csv, which contains the results of the SQL query!
 
-Let's go see the SQL query results. Click Buckets on the left side menu, and go to your `sql-query-results` bucket. There should be a file ending in _csv, which contains the results of the SQL query!
-
-5. It's possible that once you get your aggregated results, you want to continue to do some processing in IBM Cloud Functions. To that end, we've included an IBM Cloud Functions action to read this query result. You can see the results of that in the IBM Cloud Functions Monitor tab.
+6. It's possible that once you get your aggregated results, you want to continue to do some processing in IBM Cloud Functions. To that end, we've included an IBM Cloud Functions action to read this query result. You can see the results of that in the IBM Cloud Functions Monitor tab.
 
     1. Go to IBM Cloud Functions [Monitor tab](https://cloud.ibm.com/functions/dashboard).
 
