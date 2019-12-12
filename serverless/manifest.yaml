@@ -4,8 +4,8 @@
 
 # Deployment using this manifest file creates following OpenWhisk components:
 #   Package:    $PACKAGE_NAME
-#   Action:     $PACKAGE_NAME/parse_trigger.js
-#   Action:     $PACKAGE_NAME/image_processing_vr.js
+#   Action:     $PACKAGE_NAME/parse_trigger
+#   Action:     $PACKAGE_NAME/image_processing_vr
 #   Action:     $PACKAGE_NAME/parse_params_sql_query
 #   Action:     $PACKAGE_NAME/call_sql_job_results
 #   Sequence:   $PACKAGE_NAME/imagesequence
@@ -24,6 +24,7 @@
 #   RULE_NAME_PROCESSED
 #   COS_SQL_TARGET
 #   BUCKET_NAME
+#   BUCKET_NAME_PROCESSED
 #   ENDPOINT (cos endpoint for your buckets)
 #   VR_API_KEY (watson visual recognition)
 #   VERSION (watson visual recognition version)
@@ -46,7 +47,7 @@ project:
           $TRIGGER_NAME_PROCESSED:
               feed: /whisk.system/cos/changes
               inputs:
-                  bucket: $BUCKET_NAME-processed
+                  bucket: $BUCKET_NAME_PROCESSED
                   endpoint: $ENDPOINT
                   event_types: write
       actions:
