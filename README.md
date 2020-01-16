@@ -144,11 +144,13 @@ To deploy the rest of the functions required in this application, we'll use the 
     export SQL_RESULTS_TARGET=cos://us-south/$SQLRESULTS_BUCKET
     ```
 
-1. Finally, you will need some information from the Visual Recognition service.  You saved your apikey earlier, so use that. This application is built against the version released on `2018-03-19`, so we'll use that value for VERSION.
+1. You will need some information from the Visual Recognition service.  You saved your apikey earlier, so use that. This application is built against the version released on `2018-03-19`, so we'll use that value for VERSION.
     ```
     export VR_API_KEY=<your_visual_recognition apikey>
     export VERSION=2018-03-19
     ```
+
+1. Finaly, take a look at the `statement` field under `inputs` for the `parse_params_sql_query` `action`. This is the SQL query statement that will run against your processed image information. Find the cos URL, and replace the bucket name (`my-images-bmv-processed`) with your own `-processed` bucket.
 
 1. You've set up some required credentials and various parameters for your IBM Cloud Functions. Let's deploy the functions now! Change directories to the `serverless` folder, and then deploy the functions.
     ```
@@ -156,7 +158,7 @@ To deploy the rest of the functions required in this application, we'll use the 
     ibmcloud fn deploy
     ```
 
-1. Congratulations! If you went directly to your cloud object storage bucket and added a file, you should see your trigger fire and some processed actions showing up in your `mybucket-processed` bucket. Another trigger will then fire, causing the SQL Query to run and aggregate the results. Let's try it out!
+1. Congratulations! If you went directly to your cloud object storage bucket and added a file, you should see your trigger fire and some processed actions showing up in your `-processed` bucket. Another trigger will then fire, causing the SQL Query to run and aggregate the results. Let's try it out!
 
 ### Try out your new actions
 1. Go to your Cloud Object Storage instance in the UI for IBM Cloud. You can find it in the [resources list](https://cloud.ibm.com/resources).
