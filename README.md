@@ -79,7 +79,7 @@ We'll deploy two packages containing already created actions that we can use to 
 
 1. Clone the SQL Query Package Repo:
     ```
-    git clone https://github.com/IBM-Cloud/openwhisk-sql-query.git
+    git clone git@github.com:IBM-Cloud/openwhisk-sql-query.git
     ```
 
 1. Change directories into the openwhisk-sql-query folder you just cloned:
@@ -117,8 +117,8 @@ To deploy the rest of the functions required in this application, we'll use the 
 
 1. Let's clone the application, and change directories.
     ```
-    git clone git@github.com:IBM/openwhisk-sql-query.git
-    cd cos-fns-sql-query
+    git clone git@github.com:IBM/functions-cos-sql-query.git
+    cd functions-cos-sql-query
     ```
 
 1. Take a look at the `serverless/manifest.yaml file`. You should see a manifest describing the various actions, triggers, packages, and sequences to be created. You will also notice that there are a number of environment variables you should set locally before running this manifest file.
