@@ -2,6 +2,10 @@
 
 # Leverage Cloud Object Storage Triggers with SQL Query to Analyze your Data
 
+## WARNING: This repository is no longer maintained. 
+
+This repository will not be updated. The repository will be kept available in read-only mode.
+
 ## Summary
 In this application, you upload an image to a web application that is stored in IBM Cloud Object Storage, which triggers your serverless function to run and do some image analysis to determine what is in the image.  These results will be stored into a different Cloud Object Storage bucket, which will trigger your SQL Query functions to be run. The query will aggregate the various classes or tags found in all of the images.
 
